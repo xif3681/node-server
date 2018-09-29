@@ -73,6 +73,21 @@ function getByConditions(wherestr) {
 
 // getByConditions();
 
+function getById() {
+    var id = '56f261fb448779caa359cb73';
+
+    User.findById(id, function (err, res) {
+        if (err) {
+            console.log("Error:" + err);
+        }
+        else {
+            console.log("Res:" + res);
+        }
+    })
+}
+
+// getById();
+
 function getCountByConditions(wherestr) {
     // var wherestr = {};
 
