@@ -10,7 +10,7 @@ router.get('/', function (req, resp, next) {
 
 // 创建任务
 router.post('/createTask', function (req, resp, next) {
-    console.log(req.body);
+    // console.log(req.body);
     var body = req.body;
     var task = new Task(body);
     task.save(function (err, res) {
@@ -20,7 +20,7 @@ router.post('/createTask', function (req, resp, next) {
             resp.send({ mess: '服务器错误！', data: { 'server_time': new Date(), err: err } });
         }
         else {
-            console.log("Res:" + res);
+            console.log("Res:" + 'createTask');
             resp.send({ mess: '添加成功！' });
         }
 
@@ -30,14 +30,12 @@ router.post('/createTask', function (req, resp, next) {
 });
 
 // 分页获取任务
-router.get('/getTask', function (req, resp, next) {
+router.get('/getTasks', function (req, resp, next) {
     // var query = JSON.stringify(req.query);
     // console.log(query);
     var pageSize = Number(req.query.pageSize) || 5;                   //一页多少条
     var currentPage = Number(req.query.currentPage) || 1;                //当前第几页
 
-    console.log(pageSize);
-    console.log(currentPage);
     // var sort = { 'logindate': -1 };        //排序（按登录时间倒序）
     var sort = { 'id': 1 };        //排序（按登录时间倒序）
     var condition = {};                 //条件
@@ -52,7 +50,7 @@ router.get('/getTask', function (req, resp, next) {
             resp.send({ mess: '服务器错误！', data: { 'server_time': new Date(), err: err } });
         }
         else {
-            console.log("Res:" + res);
+            console.log("Res:" + 'getTask');
             Task.count(condition, function (err1, res1) {
                 if (err) {
                     console.log("Error:" + err1);
@@ -69,23 +67,22 @@ router.get('/getTask', function (req, resp, next) {
 
 });
 
-router.get('/searchTask', function (req, resp, next) {
-    var id = Number(req.query.id) || 1;
-    console.log(id);
+router.get('/searchAllTask', function (req, resp, next) {
+    var id = Number(req.query.id) || 'DE1700220125';
     var pageSize = Number(req.query.pageSize) || 5;                   //一页多少条
     var currentPage = Number(req.query.currentPage) || 1;                //当前第几页
-    var sort = { 'id': 1 };        //排序（按登录时间倒序）
+    // var sort = { 'id': 1 };        //排序（按登录时间倒序）
     var condition = {'id': id};                 //条件
     var skipnum = (currentPage - 1) * pageSize;   //跳过数
 
-    Task.find(condition).skip(skipnum).limit(pageSize).sort(sort).exec(function (err, res) {
-        // Task.find(condition).skip(skipnum).limit(pageSize).exec(function (err, res) {
+    // Task.find(condition).skip(skipnum).limit(pageSize).sort(sort).exec(function (err, res) {
+        Task.find(condition).skip(skipnum).limit(pageSize).exec(function (err, res) {
         if (err) {
             console.log("Error:" + err);
             resp.send({ mess: '服务器错误！', data: { 'server_time': new Date(), err: err } });
         }
         else {
-            console.log("Res:" + res);
+            console.log("Res:" + 'searchAllTask');
             Task.count(condition, function (err1, res1) {
                 if (err) {
                     console.log("Error:" + err1);
@@ -102,15 +99,10 @@ router.get('/searchTask', function (req, resp, next) {
 
 });
 router.post('/searchTask', function (req, resp, next) {
-    // console.log(JSON.stringify(req.body));
-    var body = req.body;
-    // console.log(typeof (body));
-    // console.log(typeof (body.content));
-    var content = JSON.parse(body.content);
+    var content = req.body;
+    // var content = JSON.parse(body.content);
     console.log(content);
-    // console.log(typeof(content));
-    // console.log(typeof (content.system_info));
-    // console.log(content.system_info);
+
     if (!content.task || content.task.length == 0) { // 服务器下发任务！
         var led_id = content.system_info.id;
         console.log('服务器下发任务！');
@@ -139,7 +131,7 @@ router.post('/searchTask', function (req, resp, next) {
                 let seconds = date.getSeconds();
                 let ms = date.getMilliseconds();
                 let UTC = Date.UTC(year, month, day, hours, minutes, seconds, ms)
-                console.log(task);
+                // console.log(task);
 
                 if (task.length > 0) {
 

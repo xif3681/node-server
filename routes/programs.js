@@ -21,7 +21,7 @@ router.post('/createProgram', function (req, resp, next) {
             resp.send({ mess: '添加失败！' });
         }
         else {
-            console.log("Res:" + res);
+            console.log("Res:" + 'createProgram');
             resp.send({ mess: '添加成功！' });
         }
 
@@ -38,7 +38,7 @@ router.get('/getProgram', function (req, resp, next) {
             console.log("Error:" + err);
         }
         else {
-            console.log("Res:" + res);
+            console.log("Res:" + 'getProgram');
             // let  program = {
             //     id: res._id,
             //     name: res.name,
@@ -60,7 +60,7 @@ router.get('/getProgram', function (req, resp, next) {
                 }
             ]
             let result = {
-                'policy': 'simple',
+                'policy': 'rotational',
                 'programs': programs
             };
             resp.send(result);
@@ -93,7 +93,7 @@ router.get('/getPrograms', function (req, resp, next) {
             resp.send({ mess: '获取数据失败！' });
         }
         else {
-            console.log("Res:" + res);
+            console.log("Res:" + 'getPrograms');
             Program.count(condition, function (err1, res1) {
                 if (err) {
                     console.log("Error:" + err1);

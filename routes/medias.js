@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
 // 添加播放内容
 router.post('/createMedia', function (req, resp, next) {
-    console.log(req.body);
+    // console.log(req.body);
     var body = req.body;
     var media = new Media(body);
     media.save(function (err, res) {
@@ -19,7 +19,7 @@ router.post('/createMedia', function (req, resp, next) {
             resp.send({ mess: '添加失败！' });
         }
         else {
-            console.log("Res:" + res);
+            console.log("Res:" + 'createMedia');
             resp.send({ mess: '添加成功！' });
         }
 
@@ -41,13 +41,14 @@ router.get('/getMedia', function (req, resp, next) {
             resp.send({ mess: '获取数据失败！' });
         }
         else {
-            console.log("Res:" + res);
+
             Media.count(condition, function (err1, res1) {
                 if (err) {
                     console.log("Error:" + err1);
                 }
                 else {
-                    console.log("Res:" + res1);
+                    // console.log("Res:" + res1);
+                    console.log("Res:" + 'getMedia');
                     resp.send({ mess: '获取数据成功！', data: res, total: res1 });
                 }
             })
