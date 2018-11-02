@@ -1,6 +1,8 @@
 var mongoose = require('../db').mongoose;
 var schema = new mongoose.Schema({
     id: { type: String },
+    name: { type: String },
+    proid: { type: String },
     status: { type: String },
     datagram: {
         request: { type: String },

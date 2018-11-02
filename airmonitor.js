@@ -14,6 +14,8 @@ var ledConfig = require('./led_config');
 
 var requestData = ledConfig.air_request_data;
 var content = JSON.stringify(requestData);
+// var wellcome_content = ledConfig.air_device_id;
+var air_device_id = ledConfig.air_device_id;
 var airOptions = {
     host: ledConfig.air_options.host,
     port: ledConfig.air_options.port,
@@ -28,7 +30,7 @@ var airOptions = {
 
 console.log("content:", content);
 
-setInterval(() => {
+function creatPro() {
     var req = http.request(airOptions, function (serverFeedback) {
         console.log("statusCode: ", serverFeedback.statusCode);
         console.log("headers: ", serverFeedback.headers);
@@ -44,17 +46,42 @@ setInterval(() => {
                 const pp = JSON.parse(_data);
                 console.log(pp);
                 console.log(typeof (pp));
-                _get.gProgram(pp[0]);
+                // _get.gWell(wellcome_content);//欢迎词
+                let ele = getAirById(air_device_id) || pp[0];
+                console.log(ele);
+                if (ele) {
+                    _get.gProgram(ele);
+                }
+
+
             });
 
         } else {
-            res.send(500, "error");
+            console.log(500, "error");
         }
     });
     req.write(content + "\n");
     req.end();
+}
 
-}, 20000);
+function getAirById(id, arr) {
+    let ele;
+    console.log(arr)
+    if (arr) {
+        arr.map((item, i) => {
+            if (item.name === id) {
+                ele = item;
+            }
+        })
+    }
+
+    return ele;
+}
+
+creatPro();
+setInterval(() => {
+    creatPro();
+}, 1000*60*3);
 
 
 

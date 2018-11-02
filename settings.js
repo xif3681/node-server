@@ -1,5 +1,6 @@
 module.exports = {
-    "ip": "localhost",
-    "db": "ledmo",
+    "ip": "172.18.8.48",
+    "db": "leddb",
     "host": 27071
 };
+

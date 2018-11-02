@@ -1,6 +1,6 @@
 var settings = require("./settings");
-var mongoose = require('mongoose'),
-    DB_URL = 'mongodb://localhost:27017/ledmo';
+var mongoose = require('mongoose');
+var DB_URL = "mongodb://" + settings.ip + "/" + settings.db;
 
 /**
  * 连接

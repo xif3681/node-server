@@ -31,7 +31,7 @@ function update(wherestr, updatestr) {
     // var wherestr = { 'username': 'Tracy McGrady' };
     // var updatestr = { 'userpwd': 'zzzz' };
 
-    User.update(wherestr, updatestr, function (err, res) {
+    User.update(wherestr, updatestr, { multi: true}, function (err, res) {
         if (err) {
             console.log("Error:" + err);
         }
